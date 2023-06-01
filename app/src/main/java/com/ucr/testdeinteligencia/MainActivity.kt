@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         startBtn.setOnClickListener{
             dbHelper.insertData(nameText.text.toString())
-            val intent = Intent(this, preguntasTemp::class.java)
+            val intent = Intent(this, Question::class.java)
             startActivity(intent)
         }
     }
