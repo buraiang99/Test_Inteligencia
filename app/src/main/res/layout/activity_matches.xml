@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".preguntasTemp">
+    tools:context=".Matches">
 
     <TextView
-        android:id="@+id/nameTempView"
-        android:layout_width="182dp"
-        android:layout_height="96dp"
+        android:id="@+id/nameIntView"
+        android:layout_width="133dp"
+        android:layout_height="22dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/matchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/matchView"
+        android:layout_width="360dp"
+        android:layout_height="326dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
