@@ -20,10 +20,9 @@ class MainActivity : AppCompatActivity() {
         startBtn=findViewById(R.id.startBtn)
         ejemploView=findViewById(R.id.ejemploView)
         nameText=findViewById(R.id.nameText)
-
         startBtn.setOnClickListener{
             dbHelper.insertData(nameText.text.toString())
-            val intent = Intent(this, preguntasTemp::class.java)
+            val intent = Intent(this, Matches::class.java)
             startActivity(intent)
         }
     }
