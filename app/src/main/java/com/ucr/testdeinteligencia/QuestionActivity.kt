@@ -9,19 +9,19 @@ import com.ucr.testdeinteligencia.databinding.ActivityQuestionBinding
 class QuestionActivity : AppCompatActivity() {
     var indexIntelligence: Int = 0
     var indexQuestion: Int = 0
+    var name=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityQuestionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //nextQuestion(binding, saveQuestions())
-
         val intelligence = saveQuestions()
-
+        name= intent.getStringExtra("name").toString()
         binding.radioGroup.clearCheck()
         binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
 
         binding.buttonConfirm.setOnClickListener {
-            if (indexIntelligence <= 3) {
+            if (indexIntelligence < intelligence.size) {
                 if (binding.radioButtonAlways.isChecked) {
                     intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 5
                     println("Prueba" + intelligence[indexIntelligence].nameInt + ", " + intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ )
@@ -39,12 +39,6 @@ class QuestionActivity : AppCompatActivity() {
                         }
                     }
                 }
-            } else {
-                val intent = Intent(this, ResultActivity::class.java)
-                intent.putExtra("arrayListIntelligence", intelligence)
-                startActivity(intent)
-                //indexQuestion = 0
-                //indexIntelligence = 0
             }
         }
 
@@ -53,14 +47,22 @@ class QuestionActivity : AppCompatActivity() {
 
         if (indexQuestion == 2) {
             intelligence[indexIntelligence].totalScore()
+            intelligence[indexIntelligence].calcularMCD()
             indexIntelligence++
             indexQuestion = 0
         } else {
             indexQuestion++
         }
-        if (indexIntelligence <= 3) {
+        if (indexIntelligence < intelligence.size) {
             binding.radioGroup.clearCheck()
             binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
+        } else {
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("arrayListIntelligence", intelligence)
+            intent.putExtra("name",this.name)
+            startActivity(intent)
+            //indexQuestion = 0
+            //indexIntelligence = 0
         }
     }
 
@@ -106,6 +108,86 @@ class QuestionActivity : AppCompatActivity() {
         arrayListCOL.add(questionCOL3)
         val intelligenceCollaborative = Intelligence("Colaborativa", 12, arrayListCOL)
         arrayListIntelligence.add(intelligenceCollaborative)
+
+        val questionMus = Question("¿Disfrutas escuchar música de diferentes géneros y estilos?")
+        val questionMus2 = Question("¿Te sientes atraído por los aspectos técnicos de la música, como la teoría musical y la composición?")
+        val questionMus3 = Question("¿Tienes facilidad para mantener el ritmo y seguir el compás de una canción mientras la escuchas o tocas un instrumento?")
+        val arrayListMus = ArrayList<Question>()
+        arrayListMus.add(questionMus)
+        arrayListMus.add(questionMus2)
+        arrayListMus.add(questionMus3)
+        val intelligenceMusical = Intelligence("Musical", 1, arrayListMus)
+        arrayListIntelligence.add(intelligenceMusical)
+
+        val questionCor = Question("¿Te resulta sencillo expresarse a través del movimiento corporal, como gestos, posturas o expresiones faciales?")
+        val questionCor2 = Question("¿Tienes facilidad para aprender movimientos y gestos nuevos con tu cuerpo?")
+        val questionCor3 = Question("¿Eres hábil en actividades físicas que requieren coordinación, como deportes, danza o artes marciales?")
+        val arrayListCor = ArrayList<Question>()
+        arrayListCor.add(questionCor)
+        arrayListCor.add(questionCor2)
+        arrayListCor.add(questionCor3)
+        val intelligenceCorporal = Intelligence("Corporal-cinestesica", 2, arrayListCor)
+        arrayListIntelligence.add(intelligenceCorporal)
+
+        val questionNat = Question("¿Disfrutas pasando tiempo al aire libre y observando la flora y fauna que te rodea?")
+        val questionNat2 = Question("¿Tienes un interés innato por aprender sobre los ecosistemas, la conservación de la naturaleza y los procesos naturales?")
+        val questionNat3 = Question("¿Tienes facilidad para identificar diferentes especies de plantas, animales o elementos naturales en tu entorno?")
+        val arrayListNat = ArrayList<Question>()
+        arrayListNat.add(questionNat)
+        arrayListNat.add(questionNat2)
+        arrayListNat.add(questionNat3)
+        val intelligenceNaturalista = Intelligence("Naturalista", 3, arrayListNat)
+        arrayListIntelligence.add(intelligenceNaturalista)
+
+        val questionEmo = Question("¿Tienes la capacidad de reconocer las emociones de otras personas a través de su lenguaje verbal y no verbal?")
+        val questionEmo2 = Question("¿Eres capaz de motivarte y mantener un estado de ánimo positivo, incluso en momentos desafiantes?")
+        val questionEmo3 = Question("¿Tienes empatía hacia los demás y eres capaz de entender y compartir sus emociones?")
+        val arrayListEmo = ArrayList<Question>()
+        arrayListEmo.add(questionEmo)
+        arrayListEmo.add(questionEmo2)
+        arrayListEmo.add(questionEmo3)
+        val intelligenceEmocional = Intelligence("Emocional", 4, arrayListEmo)
+        arrayListIntelligence.add(intelligenceEmocional)
+
+        val questionEsp = Question("¿Eres bueno/a en la resolución de problemas que involucran la ubicación de objetos en el espacio, como en juegos de ajedrez o encaje de piezas?")
+        val questionEsp2 = Question("¿Eres capaz de recordar con precisión lugares que has visitado antes, incluso después de mucho tiempo?")
+        val questionEsp3 = Question("¿Puedes visualizar fácilmente objetos y su disposición en el espacio en tu mente?")
+        val arrayListEsp = ArrayList<Question>()
+        arrayListEsp.add(questionEsp)
+        arrayListEsp.add(questionEsp2)
+        arrayListEsp.add(questionEsp3)
+        val intelligenceEspacial = Intelligence("Espacial", 5, arrayListEsp)
+        arrayListIntelligence.add(intelligenceEspacial)
+
+        val questionMat = Question("¿Eres capaz de encontrar patrones y relaciones entre diferentes conjuntos de datos o conceptos?")
+        val questionMat2 = Question("¿Te resulta fácil razonar y deducir conclusiones a partir de información dada?")
+        val questionMat3 = Question("¿Tienes habilidades para analizar y resolver problemas complejos de manera sistemática?")
+        val arrayListMat = ArrayList<Question>()
+        arrayListMat.add(questionMat)
+        arrayListMat.add(questionMat2)
+        arrayListMat.add(questionMat3)
+        val intelligenceMatematica = Intelligence("Logica-Matematica", 6, arrayListMat)
+        arrayListIntelligence.add(intelligenceMatematica)
+
+        val questionPer = Question("¿Eres capaz de mediar en conflictos y ayudar a resolver problemas entre otras personas?")
+        val questionPer2 = Question("¿Tienes habilidades para liderar y coordinar grupos de trabajo de manera efectiva?")
+        val questionPer3 = Question("¿Disfrutas de participar en actividades sociales y colaborativas?")
+        val arrayListPer = ArrayList<Question>()
+        arrayListPer.add(questionPer)
+        arrayListPer.add(questionPer2)
+        arrayListPer.add(questionPer3)
+        val intelligencePersonal = Intelligence("Interpersonal", 7, arrayListPer)
+        arrayListIntelligence.add(intelligencePersonal)
+
+        val questionCre = Question("¿Tienes facilidad para encontrar soluciones y respuestas originales a los problemas?")
+        val questionCre2 = Question("¿Eres capaz de pensar de manera no convencional y ver las cosas desde perspectivas diferentes?")
+        val questionCre3 = Question("¿Disfrutas de la generación de ideas nuevas y la exploración de posibilidades creativas?")
+        val arrayListCre = ArrayList<Question>()
+        arrayListCre.add(questionCre)
+        arrayListCre.add(questionCre2)
+        arrayListCre.add(questionCre3)
+        val intelligenceCreativa = Intelligence("Creativa", 8, arrayListCre)
+        arrayListIntelligence.add(intelligenceCreativa)
 
         return arrayListIntelligence
     }

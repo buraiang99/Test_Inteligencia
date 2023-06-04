@@ -16,10 +16,11 @@ class SqlLite(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 
         private const val COLUMN_ID = "id"
         private const val COLUMN_NAME = "name"
         private const val COLUMN_INTE = "inteligencia"
+        private const val COLUMN_SCORE = "puntos"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        val createTableQuery = "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT,$COLUMN_INTE TEXT)"
+        val createTableQuery = "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT,$COLUMN_INTE TEXT,$COLUMN_SCORE TEXT)"
         db.execSQL(createTableQuery)
     }
 
@@ -29,10 +30,12 @@ class SqlLite(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 
         onCreate(db)
     }
 
-    fun insertData(name: String) {
+    fun insertData(name: String,inte: String,score: Int) {
         val db = writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
+        values.put(COLUMN_INTE, inte)
+        values.put(COLUMN_SCORE, score)
         db.insert(TABLE_NAME, null, values)
         db.close()
     }
