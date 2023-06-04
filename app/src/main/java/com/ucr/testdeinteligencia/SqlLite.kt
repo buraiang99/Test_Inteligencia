@@ -41,20 +41,66 @@ class SqlLite(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 
     }
 
     @SuppressLint("Range")
-    fun getAllData(): ArrayList<String> {
-        val dataList = ArrayList<String>()
+    fun getAllData(): List<Map<String, Any>> {
         val db = readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME"
-        val cursor: Cursor = db.rawQuery(query, null)
+        val consulta = "SELECT * FROM $TABLE_NAME"
+        val cursor = db.rawQuery(consulta, null)
+        val dataList = mutableListOf<Map<String, Any>>()
+
+        while (cursor.moveToNext()) {
+            val columnNames = cursor.columnNames
+            val data = HashMap<String, Any>()
+
+            for (columnName in columnNames) {
+                val value = cursor.getString(cursor.getColumnIndex(columnName))
+                data[columnName] = value
+            }
+
+            dataList.add(data)
+        }
+        cursor.close()
+        db.close()
+        return dataList
+    }
+    @SuppressLint("Range")
+    fun getLastUser(): Map<String, Any>? {
+        val db = readableDatabase
+
+        val consulta = "SELECT * FROM $TABLE_NAME ORDER BY id DESC LIMIT 1"
+
+        val cursor = db.rawQuery(consulta, null)
+
+        var usuario: Map<String, Any>? = null
 
         if (cursor.moveToFirst()) {
-            do {
-                val name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
-                dataList.add(name)
-            } while (cursor.moveToNext())
+            val columnNames = cursor.columnNames
+            usuario = HashMap<String, Any>()
+
+            for (columnName in columnNames) {
+                val value = cursor.getString(cursor.getColumnIndex(columnName))
+                usuario[columnName] = value
+            }
         }
 
         cursor.close()
-        return dataList
+        db.close()
+
+        return usuario
+    }
+
+    fun updateUserColumn(id: Int, columnName: String, columnValue: String) {
+        val db = writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(columnName, columnValue)
+
+        val whereClause = "$COLUMN_ID = ?"
+        val whereArgs = arrayOf(id.toString())
+
+        db.update(TABLE_NAME, contentValues, whereClause, whereArgs)
+    }
+    fun deleteAll() {
+        val db = writableDatabase
+        db.delete(TABLE_NAME, null, null)
+        db.close()
     }
 }

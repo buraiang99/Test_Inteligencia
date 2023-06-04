@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         startBtn=findViewById(R.id.startBtn)
         ejemploView=findViewById(R.id.ejemploView)
         nameText=findViewById(R.id.nameText)
-
         startBtn.setOnClickListener{
             val intent = Intent(this, QuestionActivity::class.java)
             intent.putExtra("name",nameText.text.toString())
