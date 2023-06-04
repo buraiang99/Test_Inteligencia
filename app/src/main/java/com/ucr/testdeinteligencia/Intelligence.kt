@@ -1,6 +1,8 @@
 package com.ucr.testdeinteligencia
 
-class Intelligence {
+import java.io.Serializable
+
+class Intelligence : Serializable {
 
     var nameInt: String = ""
         get() = field

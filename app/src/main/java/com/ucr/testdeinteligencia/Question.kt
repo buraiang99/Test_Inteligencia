@@ -1,6 +1,8 @@
 package com.ucr.testdeinteligencia
 
-class Question {
+import java.io.Serializable
+
+class Question : Serializable {
 
     var descriptionQ: String = ""
         get() = field
