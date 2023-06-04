@@ -18,9 +18,9 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
 
         val intelligence = intent.getSerializableExtra("arrayListIntelligence") as ArrayList<Intelligence>
-        //Toast.makeText(this, intelligence[0].nameInt, Toast.LENGTH_LONG).show()
+        //Toast.makeText(this, intelligence[0].totalScore().toString(), Toast.LENGTH_LONG).show()
         textViewResult = findViewById(R.id.textViewResult)
-        textViewResult.text = "Tu inteligencia es: ${intelligence[0].nameInt}"
+        textViewResult.text = "Tu inteligencia es: ${intelligence[0].nameInt}" + "\n Tu puntaje es de: ${intelligence[0].totalScore()}"
 
         buttonExit = findViewById(R.id.buttonExit)
 

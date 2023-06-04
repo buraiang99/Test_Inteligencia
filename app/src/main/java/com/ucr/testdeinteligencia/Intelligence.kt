@@ -32,6 +32,7 @@ class Intelligence : Serializable {
         for (total in questionInt) {
             score += total.scoreQ
         }
+        //println("Prueba"+questionInt[2].scoreQ)
         return score
     }
     override fun toString(): String {
