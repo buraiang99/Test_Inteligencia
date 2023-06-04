@@ -1,5 +1,6 @@
 package com.ucr.testdeinteligencia
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,6 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityQuestionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         nextQuestion(binding, saveQuestions())
 
     }
@@ -21,19 +21,27 @@ class QuestionActivity : AppCompatActivity() {
         binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
         binding.radioGroup.clearCheck()
         binding.buttonConfirm.setOnClickListener {
-            if (binding.radioButtonAlways.isChecked) {
-                intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 5
-                nextQuestion(binding, intelligence)
-            } else {
-                if (binding.radioButtonSometimes.isChecked) {
-                    intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 3
+            if (indexIntelligence <= 3) {
+                if (binding.radioButtonAlways.isChecked) {
+                    intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 5
                     nextQuestion(binding, intelligence)
                 } else {
-                    if (binding.radioButtonNever.isChecked) {
-                        intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 1
+                    if (binding.radioButtonSometimes.isChecked) {
+                        intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 3
                         nextQuestion(binding, intelligence)
+                    } else {
+                        if (binding.radioButtonNever.isChecked) {
+                            intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 1
+                            nextQuestion(binding, intelligence)
+                        }
                     }
                 }
+            } else {
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("arrayListIntelligence", intelligence)
+                startActivity(intent)
+                indexQuestion = 0
+                indexIntelligence = 0
             }
         }
         if (indexQuestion == 2) {
@@ -42,7 +50,6 @@ class QuestionActivity : AppCompatActivity() {
         } else {
             indexQuestion++
         }
-
     }
 
     fun saveQuestions(): ArrayList<Intelligence> {
@@ -55,7 +62,7 @@ class QuestionActivity : AppCompatActivity() {
         arrayListLV.add(questionLV)
         arrayListLV.add(questionLV2)
         arrayListLV.add(questionLV3)
-        val intelligenceLinguisticVerbal = Intelligence("Inteligencia lingüístico-verbal", 9, arrayListLV)
+        val intelligenceLinguisticVerbal = Intelligence("Lingüístico-verbal", 9, arrayListLV)
         arrayListIntelligence.add(intelligenceLinguisticVerbal)
 
         val questionIP = Question(" Puedo identificar mis emociones.")
@@ -65,7 +72,7 @@ class QuestionActivity : AppCompatActivity() {
         arrayListIP.add(questionIP)
         arrayListIP.add(questionIP2)
         arrayListIP.add(questionIP3)
-        val intelligenceIntrapersonal = Intelligence("Inteligencia intrapersonal", 10, arrayListIP)
+        val intelligenceIntrapersonal = Intelligence("Intrapersonal", 10, arrayListIP)
         arrayListIntelligence.add(intelligenceIntrapersonal)
 
         val questionES = Question("¿Eres consciente de tu propia existencia?")
@@ -75,7 +82,7 @@ class QuestionActivity : AppCompatActivity() {
         arrayListES.add(questionES)
         arrayListES.add(questionES2)
         arrayListES.add(questionES3)
-        val intelligenceExistential = Intelligence("Inteligencia existencial", 11, arrayListES)
+        val intelligenceExistential = Intelligence("Existencial", 11, arrayListES)
         arrayListIntelligence.add(intelligenceExistential)
 
         val questionCOL = Question("¿Eres capaz de trabajar en equipo y colaborar con otros seres o entidades?")
@@ -85,7 +92,7 @@ class QuestionActivity : AppCompatActivity() {
         arrayListCOL.add(questionCOL)
         arrayListCOL.add(questionCOL2)
         arrayListCOL.add(questionCOL3)
-        val intelligenceCollaborative = Intelligence("Inteligencia colaborativa", 12, arrayListCOL)
+        val intelligenceCollaborative = Intelligence("Colaborativa", 12, arrayListCOL)
         arrayListIntelligence.add(intelligenceCollaborative)
 
         return arrayListIntelligence
