@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Test de inteligencia</string>
+    <string name="Question">Tipos de inteligencia</string>
+    <string name="Never">Nunca</string>
+    <string name="Sometimes">A veces</string>
+    <string name="Always">Siempre</string>
+    <string name="Confirm">Confirmar</string>
+    <string name="Result">Tu inteligencia</string>
+    <string name="Exit">Salir</string>
 </resources>
