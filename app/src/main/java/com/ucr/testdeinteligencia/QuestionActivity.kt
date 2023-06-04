@@ -13,25 +13,28 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityQuestionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        nextQuestion(binding, saveQuestions())
+        //nextQuestion(binding, saveQuestions())
 
-    }
-    fun nextQuestion(binding: ActivityQuestionBinding, intelligence: ArrayList<Intelligence>) {
+        val intelligence = saveQuestions()
 
-        binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
         binding.radioGroup.clearCheck()
+        binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
+
         binding.buttonConfirm.setOnClickListener {
             if (indexIntelligence <= 3) {
                 if (binding.radioButtonAlways.isChecked) {
                     intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 5
+                    println("Prueba" + intelligence[indexIntelligence].nameInt + ", " + intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ )
                     nextQuestion(binding, intelligence)
                 } else {
                     if (binding.radioButtonSometimes.isChecked) {
                         intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 3
+                        println("Prueba" + intelligence[indexIntelligence].nameInt + ", " + intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ )
                         nextQuestion(binding, intelligence)
                     } else {
                         if (binding.radioButtonNever.isChecked) {
                             intelligence[indexIntelligence].questionInt[indexQuestion].scoreQ = 1
+                            println("Prueba" + intelligence[indexIntelligence].nameInt + ", " + intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ )
                             nextQuestion(binding, intelligence)
                         }
                     }
@@ -40,15 +43,24 @@ class QuestionActivity : AppCompatActivity() {
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("arrayListIntelligence", intelligence)
                 startActivity(intent)
-                indexQuestion = 0
-                indexIntelligence = 0
+                //indexQuestion = 0
+                //indexIntelligence = 0
             }
         }
+
+    }
+    fun nextQuestion(binding: ActivityQuestionBinding, intelligence: ArrayList<Intelligence>) {
+
         if (indexQuestion == 2) {
+            intelligence[indexIntelligence].totalScore()
             indexIntelligence++
             indexQuestion = 0
         } else {
             indexQuestion++
+        }
+        if (indexIntelligence <= 3) {
+            binding.radioGroup.clearCheck()
+            binding.textViewQuestion.text = intelligence[indexIntelligence].questionInt[indexQuestion].descriptionQ
         }
     }
 
