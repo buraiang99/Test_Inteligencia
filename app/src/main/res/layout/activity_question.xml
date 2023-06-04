@@ -6,63 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".QuestionActivity">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/textViewQuestion"
+        android:layout_width="360dp"
+        android:layout_height="164dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:paddingTop="50dp"
+        android:text="@string/Question"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.Theme.TestDeInteligencia"
+        android:textSize="20sp"
+        android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textViewQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif"
-            android:paddingTop="50dp"
-            android:text="Tipos de inteligencia"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.Theme.TestDeInteligencia"
-            android:textSize="20sp"
-            android:typeface="normal" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="80dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/buttonConfirm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion">
 
         <RadioButton
             android:id="@+id/radioButtonNever"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nunca" />
+            android:maxWidth="300dp"
+            android:text="@string/Never"
+            android:textSize="20sp"
+            tools:ignore="VisualLintButtonSize" />
 
         <RadioButton
             android:id="@+id/radioButtonSometimes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A veces" />
+            android:maxWidth="300dp"
+            android:text="@string/Sometimes"
+            android:textSize="20sp"
+            tools:ignore="VisualLintButtonSize" />
 
         <RadioButton
             android:id="@+id/radioButtonAlways"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Siempre" />
+            android:maxWidth="300dp"
+            android:text="@string/Always"
+            android:textSize="20sp"
+            tools:ignore="VisualLintButtonSize" />
 
     </RadioGroup>
 
@@ -70,13 +69,11 @@
         android:id="@+id/buttonConfirm"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="224dp"
-        android:text="Confirmar"
+        android:layout_marginBottom="40dp"
+        android:text="@string/Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
