@@ -44,13 +44,24 @@ class ResultActivity : AppCompatActivity() {
                 pos++
             }
         }
-        dbHelper.insertData(this.name.toString(),intelligence[intePos].nameInt,intelligence[intePos].totalScore)
+        dbHelper.insertData(this.name.toString(),intelligence[intePos].nameInt)
+        val dataList = dbHelper.getAllData()
+        val lastData=dataList.last()
+        var inte1=0
+        var inte1Score=0
+        var inte2=0
+        var inte3=0
+        var position=0
+        val bestScore=intelligence.sortedByDescending { it.totalScore }.take(3)
+        dbHelper.insertData2(lastData["id"].toString().toInt(),bestScore[0].nameInt,bestScore[0].totalScore)
+        dbHelper.insertData2(lastData["id"].toString().toInt(),bestScore[1].nameInt,bestScore[1].totalScore)
+        dbHelper.insertData2(lastData["id"].toString().toInt(),bestScore[2].nameInt,bestScore[2].totalScore)
         textViewResult.text = "Tu inteligencia es: ${intelligence[intePos].nameInt}"
 
         buttonExit = findViewById(R.id.buttonExit)
 
         buttonExit.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Matches::class.java)
             startActivity(intent)
         }
     }
