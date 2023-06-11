@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/nameIntView"
-        android:layout_width="133dp"
-        android:layout_height="22dp"
+        android:layout_width="316dp"
+        android:layout_height="39dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/matchView"
         app:layout_constraintEnd_toEndOf="parent"

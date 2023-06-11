@@ -10,6 +10,7 @@ class Matches : AppCompatActivity() {
     private lateinit var nameIntView: TextView
     private lateinit var dbHelper: SqlLite
     private lateinit var matchView: TextView
+    val matchs=mutableListOf<Map<String, Any>>()
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,19 +22,68 @@ class Matches : AppCompatActivity() {
         println("antes de val user")
 
         val dataList = dbHelper.getAllData()
+        val dataListIntelligence=dbHelper.getAllData2()
         val lastData=dataList.last()
-        matchView.text="Personas con su misma inteligencia: \n"
+        var userInt2=dataListIntelligence[dataListIntelligence.size-2]["inteligencia"]
+        var userInt3=dataListIntelligence[dataListIntelligence.size-1]["inteligencia"]
         nameIntView.text=lastData["name"].toString()
         nameIntView.append(" ")
         nameIntView.append(lastData["inteligencia"].toString())
+        matchView.text="Match de personas con inteligencias y puntuaciones similares: \n"
 
-        dataList.forEach { data ->
-            val inteligencia = data["inteligencia"] as String
-            val name = data["name"] as String
-            if(lastData["inteligencia"]==inteligencia){
-                val aux="Nombre: "+name+", Inteligencia: "+inteligencia+"\n"
-                matchView.append(aux)
+        for (i in 0..dataListIntelligence.size-1 step 3) {
+            if(lastData["inteligencia"]==dataListIntelligence[i]["inteligencia"]
+                && lastData["id"].toString().toInt()!=dataListIntelligence[i]["id_usuario"].toString().toInt()){
+                if(comprobarLista(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["id"].toString().toInt())){
+                    val aux="Nombre: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["name"]+
+                            ", Inteligencia: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["inteligencia"]+"\n"
+                    matchs.add(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1])
+                    matchView.append(aux)
+                }
             }
         }
+        for (i in 0..dataListIntelligence.size-1) {
+            if(lastData["inteligencia"]==dataListIntelligence[i]["inteligencia"]
+                && lastData["id"].toString().toInt()!=dataListIntelligence[i]["id_usuario"].toString().toInt()){
+                if(comprobarLista(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["id"].toString().toInt())){
+                    val aux="Nombre: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["name"]+
+                            ", Inteligencia: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["inteligencia"]+"\n"
+                    matchs.add(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1])
+                    matchView.append(aux)
+                }
+            }
+            if(userInt2==dataListIntelligence[i]["inteligencia"]
+                && lastData["id"].toString().toInt()!=dataListIntelligence[i]["id_usuario"].toString().toInt()){
+                if(comprobarLista(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["id"].toString().toInt())){
+                    val aux="Nombre: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["name"]+
+                            ", Inteligencia: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["inteligencia"]+"\n"
+                    matchs.add(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1])
+                    matchView.append(aux)
+                }
+            }
+            if(userInt3==dataListIntelligence[i]["inteligencia"]
+                && lastData["id"].toString().toInt()!=dataListIntelligence[i]["id_usuario"].toString().toInt()){
+                if(comprobarLista(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["id"].toString().toInt())){
+                    val aux="Nombre: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["name"]+
+                            ", Inteligencia: "+dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1]["inteligencia"]+"\n"
+                    matchs.add(dataList[dataListIntelligence[i]["id_usuario"].toString().toInt()-1])
+                    matchView.append(aux)
+                }
+            }
+        }
+    }
+
+    fun comprobarLista(id: Int): Boolean{
+        if(matchs.isEmpty()){
+            return true
+        }
+        for (i in 0..matchs.size-1) {
+            println("revisando matchs: "+matchs[i]["id"])
+            if(matchs[i]["id"].toString().toInt()==id){
+                return false
+                break
+            }
+        }
+        return true
     }
 }
