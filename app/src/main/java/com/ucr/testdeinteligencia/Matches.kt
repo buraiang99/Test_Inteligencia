@@ -1,15 +1,17 @@
 package com.ucr.testdeinteligencia
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 
 class Matches : AppCompatActivity() {
     private lateinit var nameIntView: TextView
     private lateinit var dbHelper: SqlLite
     private lateinit var matchView: TextView
+    private lateinit var buttonExit: Button
     val matchs=mutableListOf<Map<String, Any>>()
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +20,7 @@ class Matches : AppCompatActivity() {
 
         nameIntView=findViewById(R.id.nameIntView)
         matchView=findViewById(R.id.matchView)
+        buttonExit=findViewById(R.id.buttonExit)
         dbHelper = SqlLite(this)
         println("antes de val user")
 
@@ -70,6 +73,11 @@ class Matches : AppCompatActivity() {
                     matchView.append(aux)
                 }
             }
+        }
+
+        buttonExit.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

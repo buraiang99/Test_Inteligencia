@@ -58,11 +58,14 @@ class ResultActivity : AppCompatActivity() {
         dbHelper.insertData2(lastData["id"].toString().toInt(),bestScore[2].nameInt,bestScore[2].totalScore)
         textViewResult.text = "Tu inteligencia es: ${intelligence[intePos].nameInt}"
 
-        buttonExit = findViewById(R.id.buttonExit)
+        buttonExit = findViewById(R.id.buttonContinue)
 
         buttonExit.setOnClickListener{
             val intent = Intent(this, Matches::class.java)
             startActivity(intent)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
