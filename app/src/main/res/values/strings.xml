@@ -8,4 +8,7 @@
     <string name="Result">Tu inteligencia</string>
     <string name="Exit">Salir</string>
     <string name="Next">Continuar</string>
+    <string name="TittleLogin">Ingrese sus datos</string>
+    <string name="NameLogin">Nombre</string>
+    <string name="BeginLogin">Comenzar</string>
 </resources>
